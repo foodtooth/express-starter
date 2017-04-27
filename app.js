@@ -31,10 +31,13 @@ let swaggerOptions = {
       description: 'Testing how to describe a RESTful API with Swagger',
     },
     host: utils.appUrl.split('//')[1],
-    basePath: '/',
+    basePath: '/api',
   },
   //TODO: import apis as below
-  apis: ['./routes/*/index.js', './routes/*/*info.js', './routes/*/*controller.js'],
+  apis: [
+    './routes/*/index.js',
+    './routes/*/*info.js',
+  ],
 };
 let swaggerSpec = swaggerJSDoc(swaggerOptions);
 
@@ -76,7 +79,6 @@ const routesPath = path.join(__dirname, 'routes');
 let routes = utils.get1DepthDirs(routesPath);
 for (let i = 0; i < routes.length; i++) {
   let oneRoute = require(path.join(routesPath, routes[i]));
-  app.use('/' + routes[i], oneRoute);
   app.use('/api/' + routes[i], oneRoute);
 }
 

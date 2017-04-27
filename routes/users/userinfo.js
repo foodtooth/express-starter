@@ -54,7 +54,7 @@ userInfoSchema.statics.testStaticMethod = function() {
   console.log('this is: ', this, ' from testStaticMethod');
 };
 
-let UserInfo = mongoose.connDefault.model('UserInfo', userInfoSchema);
+let UserInfo = mongoose.conn.model('UserInfo', userInfoSchema);
 
 UserInfo.on('error', function(err) {
   if (err) {
