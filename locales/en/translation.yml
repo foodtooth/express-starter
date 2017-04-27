@@ -1,0 +1,9 @@
+locale:
+  language: 'english'
+  locale-iso: 'en'
+
+log:
+  info:
+  warn:
+  error:
+  fatal:

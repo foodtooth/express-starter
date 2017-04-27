@@ -1,0 +1,9 @@
+locale:
+  language: 'chinese'
+  locale-iso: 'zh'
+
+log:
+  info:
+  warn:
+  error:
+  fatal:

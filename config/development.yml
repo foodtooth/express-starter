@@ -1,0 +1,30 @@
+mongoose:
+  protocol: 'mongodb:'
+  domain: 'localhost'
+  port: 27017
+  pathname: '/express-test'
+  connectionOptions:
+    autoIndex: true
+  schemaOptions:
+    timestamps: true
+    emitIndexErrors: true
+    id: false
+    minimize: false
+    safe:
+      j: true
+      w: 'majority'
+      wtimeout: 10000
+    strict: true
+    useNestedStrict: true
+    retainKeyOrder: true
+    toObject: &toObjectOptions
+      getters: true
+    toJSON: *toObjectOptions
+
+general:
+  protocol: 'http:'
+  domain: 'localhost'
+  port: 9999
+  pathname: '/'
+  search: ''
+  hash: ''

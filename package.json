@@ -1,0 +1,30 @@
+{
+  "name": "new-express",
+  "version": "1.0.0",
+  "description": "test-express-project with OAuth2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "foodtooth",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "config": "^1.25.1",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "i18next": "^7.2.1",
+    "i18next-express-middleware": "^1.0.4",
+    "i18next-node-fs-backend": "^0.1.3",
+    "js-yaml": "^3.8.2",
+    "jsdoc": "^3.4.3",
+    "mongoose": "^4.9.0",
+    "multer": "^1.3.0",
+    "passport": "^0.3.2",
+    "passport-http-bearer": "^1.0.1",
+    "passport-local": "^1.0.0",
+    "swagger-jsdoc": "^1.9.2",
+    "swagger-ui-express": "^1.0.6",
+    "winston": "^2.3.1"
+  }
+}
