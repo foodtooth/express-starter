@@ -8,21 +8,26 @@ let router = express.Router();
 router.route('/')
 /**
  * @swagger
- * /users/:
+ * /v1/users/:
  *   post:
  *     description: Create users
+ *     version: 1.0.0
  *     tags:
- *       - Users
+ *       - v1
+ *       - users
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: user
- *         description: User object
- *         in: body
+ *       - in: body
+ *         name: users
+ *         description: User objects
  *         required: true
- *         type: string
- *         schema:
- *           $ref: '#/definitions/User'
+ *         type: array
+ *         collectionFormat: csv
+ *         items:
+ *           type: User object
+ *           schema:
+ *             $ref: '#/definitions/User'
  *     responses:
  *       200:
  *         description: users
@@ -31,14 +36,19 @@ router.route('/')
  *           items:
  *             $ref: '#/definitions/User'
  */
-.post(utils.fbController)
+.post(utils.createVerSelector({
+  1: function(req, res) {
+    res.send('A ' + req.method + ' request to ' + req.baseUrl + req.path + ' received');
+  },
+}))
 /**
  * @swagger
- * /users/:
+ * /v1/users/:
  *   get:
  *     description: Return users
  *     tags:
- *       - Users
+ *       - v1
+ *       - users
  *     produces:
  *       - application/json
  *     responses:
@@ -50,8 +60,7 @@ router.route('/')
  *             $ref: '#/definitions/User'
  */
 .get(utils.fbController)
-.put(utils.fbController)
-.delete(utils.fbController);
+.all(utils.fbController);
 
 router.route('/:userIds')
 .get(function(req, res) {

@@ -14,6 +14,12 @@ let appConfig = require('config').get('general');
 let app = express();
 
 
+//TODO:
+//1. redis
+//5. auth check for restful api
+//6. website as a client to api
+
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -27,7 +33,7 @@ let swaggerOptions = {
   swaggerDefinition: {
     info: {
       title: 'Node Swagger API',
-      version: '1.0.0',
+      version: 1,
       description: 'Testing how to describe a RESTful API with Swagger',
     },
     host: utils.appUrl.split('//')[1],
@@ -35,8 +41,8 @@ let swaggerOptions = {
   },
   //TODO: import apis as below
   apis: [
-    './routes/*/index.js',
-    './routes/*/*info.js',
+    './rests/*/index.js',
+    './rests/*/*info.js',
   ],
 };
 let swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -74,12 +80,12 @@ app.use(i18nMiddleware.handle(i18n, {
 }));
 
 
-// import routes
-const routesPath = path.join(__dirname, 'routes');
-let routes = utils.get1DepthDirs(routesPath);
-for (let i = 0; i < routes.length; i++) {
-  let oneRoute = require(path.join(routesPath, routes[i]));
-  app.use('/api/' + routes[i], oneRoute);
+// import rests
+const restsPath = path.join(__dirname, 'rests');
+let rests = utils.get1DepthDirs(restsPath);
+for (let i = 0; i < rests.length; i++) {
+  let rest = require(path.join(restsPath, rests[i]));
+  app.use('/api/:version?/' + rests[i], utils.versioning, rest);
 }
 
 app.get('/api-docs.json', function(req, res) {
