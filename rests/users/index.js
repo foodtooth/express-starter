@@ -1,7 +1,7 @@
 let express = require('express');
 
 let UserInfo = require('./userinfo');
-let utils = require('../../lib/utils');
+let utils = require('../../common/utils');
 
 let router = express.Router();
 
@@ -63,6 +63,16 @@ router.route('/')
 .all(utils.fbController);
 
 router.route('/:userIds')
+.post(utils.createVerSelector({
+  1: function(req, res) {
+    UserInfo.create(req.body, function(err, doc) {
+      if (err) {
+        res.json(err);
+      }
+      res.json(doc);
+    });
+  },
+}))
 .get(function(req, res) {
   res.render('index', { body: JSON.stringify(req.params) });
 });

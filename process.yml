@@ -1,5 +1,5 @@
 apps:
-  - name: 'new-express'
+  - name: 'vue-starter-kit'
     script: 'app.js'
     watch: true
     env:

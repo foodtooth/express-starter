@@ -2,14 +2,13 @@ let express = require('express');
 const path = require('path');
 let swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-let i18n = require('i18next');
-let i18nMiddleware = require('i18next-express-middleware');
-let i18nFsBackend = require('i18next-node-fs-backend');
 let bodyParser = require('body-parser');
 
-let utils = require('./lib/utils');
-let winston = require('./lib/winston');
+let utils = require('./common/utils');
+let winston = require('./common/winston');
 let appConfig = require('config').get('general');
+let passport = require('./common/passport');
+let i18nMiddleware = require('./common/i18nmiddleware');
 
 let app = express();
 
@@ -26,13 +25,15 @@ app.set('view engine', 'ejs');
 app.use('/static', express.static(path.join(__dirname, 'static')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(passport.initialize());
+app.use(i18nMiddleware);
 
 
 // initialize swagger-jsdoc
 let swaggerOptions = {
   swaggerDefinition: {
     info: {
-      title: 'Node Swagger API',
+      title: 'API',
       version: 1,
       description: 'Testing how to describe a RESTful API with Swagger',
     },
@@ -53,39 +54,11 @@ let swaggerUiOptions = {};
 let swaggerUiCss = '';
 
 
-// i18next settings
-i18n
-.use(i18nMiddleware.LanguageDetector)
-.use(i18nFsBackend)
-.init({
-  preload: ['en'],
-  fallbackLng: 'en',
-  backend: {
-    loadPath: 'locales/{{lng}}/{{ns}}.yml',
-  },
-  ns: ['translation'],
-  fallbackNS: 'translation',
-  detection: {
-    order: [/*'path', 'session', */'querystring', 'cookie', 'header'],
-    lookupQuerystring: 'lng',
-    lookupCookie: 'i18n',
-    lookupPath: 'lng',
-    lookupFromPathIndex: 0,
-  },
-});
-
-app.use(i18nMiddleware.handle(i18n, {
-  ignoreRoutes: ['static/', 'public/'],
-  removeLngFromUrl: false,
-}));
-
-
 // import rests
 const restsPath = path.join(__dirname, 'rests');
 let rests = utils.get1DepthDirs(restsPath);
 for (let i = 0; i < rests.length; i++) {
-  let rest = require(path.join(restsPath, rests[i]));
-  app.use('/api/:version?/' + rests[i], utils.versioning, rest);
+  app.use('/api/:version?/' + rests[i], utils.versioning, require(path.join(restsPath, rests[i])));
 }
 
 app.get('/api-docs.json', function(req, res) {
@@ -100,3 +73,5 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, showExplorer,
 app.listen(appConfig.port, function() {
   winston.info('Example app listening on port', appConfig.port);
 });
+
+module.exports = app;

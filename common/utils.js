@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+let HTTPStatus = require('http-status');
 
 let config = require('config');
 
@@ -39,7 +40,7 @@ exports.appUrl = getBaseUrl(config.get('general'));
 exports.emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 exports.fbController = function(req, res) {
-  res.status(503).send('A ' + req.method + ' request to ' + req.baseUrl + req.path + ' received, but it\'s under construction!');
+  res.status(HTTPStatus.NOT_IMPLEMENTED).send('A ' + req.method + ' request to ' + req.baseUrl + req.path + ' received, but it\'s under construction!');
 };
 
 /**

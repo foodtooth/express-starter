@@ -1,6 +1,7 @@
-let utils = require('../../lib/utils');
-let mongoose = require('../../lib/mongoose');
+let utils = require('../../common/utils');
+let mongoose = require('../../common/mongoose');
 let schemaOptions = require('config').get('mongoose.schemaOptions');
+let env = require('config').get('env');
 
 let Schema = mongoose.Schema;
 
@@ -23,7 +24,7 @@ let Schema = mongoose.Schema;
  *           type: string
  */
 let userInfoSchema = new Schema({
-  username: { type: String, trim: true, unique: true, required: true },
+  username: { type: String, trim: true, unique: true, required: true, maxlength: env.username.max, minlength: env.username.mix },
   age: { type: Number, min: 1 },
   name: {
     first: { type: String, trim: true },
@@ -43,16 +44,6 @@ userInfoSchema.virtual('fullname')
   this.name.first = vList[0];
   this.name.last = vList[(vList.length - 1) < 1 ? 1 : (vList.length - 1)];
 });
-
-// Instance methods for document
-userInfoSchema.methods.testInstanceMethod = function() {
-  console.log('this is: ', this, ' from testInstanceMethod');
-};
-
-// Static methods for model
-userInfoSchema.statics.testStaticMethod = function() {
-  console.log('this is: ', this, ' from testStaticMethod');
-};
 
 let UserInfo = mongoose.conn.model('UserInfo', userInfoSchema);
 

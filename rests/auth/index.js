@@ -1,16 +1,16 @@
 let express = require('express');
 
-let utils = require('../../lib/utils');
-let passport = require('../../lib/passport');
+let utils = require('../../common/utils');
+let passport = require('../../common/passport');
 
 let router = express.Router();
 
-router.route('/local')
-.post(passport.authenticate('local', {
-  successRedirect: '/api/users',
-  failureRedirect: '/api/users/2',
+router.route('/basic')
+.post(passport.authenticate('basic', {
   session: false,
-}))
+}), function(req, res) {
+  res.json(req.user);
+})
 .delete();
 
 module.exports = router;
