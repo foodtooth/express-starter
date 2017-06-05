@@ -1,28 +1,44 @@
+commonSocketOpts: &commonSocketOpts
+  keepAlive: 120
+  connectTimeoutMS: 10000
+  socketTimeoutMS: 10000
+commonConnOpts: &commonConnOpts
+  poolSize: 10
+
 mongoose:
-  protocol: 'mongodb:'
-  domain: 'localhost'
-  port: 27017
-  pathname: '/express-test'
-  connectionOptions:
-    autoIndex: true
+  url: 'mongodb://localhost:27017/vue-starter-kit'
+  connectOptions:
+    config:
+      autoIndex: true
+    db:
+      w: majority
+      wtimeout: 10000
+      j: true
+    server:
+      << : *commonConnOpts
+      reconnectTries: .inf
+      socketOptions:
+        << : *commonSocketOpts
+    replset:
+      << : *commonConnOpts
+      socketOptions:
+        << : *commonSocketOpts
   schemaOptions:
     timestamps: true
     emitIndexErrors: true
     id: false
     minimize: false
-    safe:
-      j: true
-      w: 'majority'
-      wtimeout: 10000
     strict: true
     useNestedStrict: true
     retainKeyOrder: true
     toObject: &toObjectOptions
       getters: true
-    toJSON: *toObjectOptions
+    toJSON:
+      << : *toObjectOptions
+    runSettersOnQuery: true
 
 general:
-  protocol: 'http:'
+  protocol: 'http:' # must have :
   domain: 'localhost'
   port: 9999
   pathname: '/'
@@ -33,3 +49,12 @@ env:
   username:
     min: 3
     max: 50
+  jwt:
+    secret: 'secret'
+    exp: '7d'
+
+constant:
+  Result:
+    SUCCESS: success
+    FAIL: fail
+    ERROR: error

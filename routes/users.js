@@ -1,9 +1,11 @@
-let express = require('express');
+'use strict';
 
-let UserInfo = require('./userinfo');
-let utils = require('../../common/utils');
+const express = require('express');
 
-let router = express.Router();
+const utils = require('../helpers/utils');
+const userCtrl = require('../controllers/user');
+
+const router = express.Router();
 
 router.route('/')
 /**
@@ -36,11 +38,7 @@ router.route('/')
  *           items:
  *             $ref: '#/definitions/User'
  */
-.post(utils.createVerSelector({
-  1: function(req, res) {
-    res.send('A ' + req.method + ' request to ' + req.baseUrl + req.path + ' received');
-  },
-}))
+.post(userCtrl.createUsers)
 /**
  * @swagger
  * /v1/users/:
@@ -59,22 +57,9 @@ router.route('/')
  *           items:
  *             $ref: '#/definitions/User'
  */
-.get(utils.fbController)
-.all(utils.fbController);
+.get(utils.fbController);
 
 router.route('/:userIds')
-.post(utils.createVerSelector({
-  1: function(req, res) {
-    UserInfo.create(req.body, function(err, doc) {
-      if (err) {
-        res.json(err);
-      }
-      res.json(doc);
-    });
-  },
-}))
-.get(function(req, res) {
-  res.render('index', { body: JSON.stringify(req.params) });
-});
+.get(userCtrl.getUser);
 
 module.exports = router;

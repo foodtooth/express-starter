@@ -1,6 +1,8 @@
-let i18n = require('i18next');
-let i18nMiddleware = require('i18next-express-middleware');
-let i18nFsBackend = require('i18next-node-fs-backend');
+'use strict';
+
+const i18n = require('i18next');
+const i18nMiddleware = require('i18next-express-middleware');
+const i18nFsBackend = require('i18next-node-fs-backend');
 
 i18n
 .use(i18nMiddleware.LanguageDetector)
@@ -14,7 +16,7 @@ i18n
   ns: ['translation'],
   fallbackNS: 'translation',
   detection: {
-    order: [/*'path', 'session', */'querystring', 'cookie', 'header'],
+    order: [/* 'path', 'session', */'querystring', 'cookie', 'header'],
     lookupQuerystring: 'lng',
     lookupCookie: 'i18n',
     lookupPath: 'lng',
@@ -23,6 +25,6 @@ i18n
 });
 
 module.exports = i18nMiddleware.handle(i18n, {
-  ignoreRoutes: ['static/', 'public/'],
+  ignoreRoutes: ['public/'],
   removeLngFromUrl: false,
 });
