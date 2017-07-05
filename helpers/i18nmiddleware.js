@@ -10,11 +10,13 @@ i18n
 .init({
   preload: ['en'],
   fallbackLng: 'en',
+  debug: true,
+  ns: ['translation'],
+  defaultNS: 'translation',
+  fallbackNS: 'translation',
   backend: {
     loadPath: 'locales/{{lng}}/{{ns}}.yml',
   },
-  ns: ['translation'],
-  fallbackNS: 'translation',
   detection: {
     order: [/* 'path', 'session', */'querystring', 'cookie', 'header'],
     lookupQuerystring: 'lng',

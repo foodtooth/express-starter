@@ -4,6 +4,9 @@ const fs = require('fs');
 const path = require('path');
 const HTTPStatus = require('http-status');
 const debug = require('debug')('vsk:helpers:utils');
+const bcrypt = require('bcryptjs');
+const Promise = require('bluebird');
+const argv = require('yargs').argv;
 
 const config = require('config');
 
@@ -43,7 +46,7 @@ debug('Full url test is: %O', getFullUrl());
 
 exports.appUrl = getBaseUrl(config.get('general'));
 
-exports.emailRegex = /^(([^<>()[]\\.,;:\s@"]+(\.[^<>()[]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+exports.emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // eslint-disable-line no-useless-escape
 
 exports.fbController = (req, res) => {
   res.status(HTTPStatus.NOT_IMPLEMENTED).send(`A ${req.method} request to ${req.baseUrl}${req.path} received, but it's under construction!`);
@@ -80,6 +83,15 @@ function sortAList(l) {
   return l.sort((a, b) => a - b);
 }
 
+function trimAList(l) {
+  return l.reduce((acc, cur) => {
+    if (cur) {
+      acc.push(cur.trim());
+    }
+    return acc;
+  }, []);
+}
+
 /**
  * Create Version-Selector function for router
  *
@@ -114,7 +126,7 @@ function newKeyObj(sourceO, oldKeyL, newKeyL) {
 
 function addToMongoQuery(q, ...keyL) {
   // TODO:
-  // 1. case key == fields or sort, give particular format; also check undefined
+  // 1. case key == fields or sort, give particular format; also check undefined, clarify it with empty (like '')
   // 2. also add whitelist for update from model
 }
 
@@ -139,6 +151,8 @@ function createDocContent(o, sourceL, targetL) {
   return newKeyObj(o, sourceL, targetL);
 }
 
+exports.createDocContent = createDocContent;
+
 /**
  * Create list of doc(s) from object (Array or Single json object)
  *
@@ -147,7 +161,7 @@ function createDocContent(o, sourceL, targetL) {
  * @param {Array} [tL]
  * @return {Array}
  */
-exports.createDocList = (o, sL, tL) => {
+function createDocList(o, sL, tL) {
   if (!o || isEmptyObject(o)) {
     return false;
   }
@@ -166,7 +180,9 @@ exports.createDocList = (o, sL, tL) => {
     }
   }
   return r;
-};
+}
+
+exports.createDocList = createDocList;
 
 // TODO:
 // 1. exports.createErrors, return a list of errors
@@ -177,3 +193,70 @@ exports.result = (status, message = '', errors = [], data = []) => {
   }
   return { status, message, errors, data };
 };
+
+function getKeyL(props) {
+  let propL;
+  if (typeof props === 'string') {
+    propL = props.split('.');
+  } else {
+    propL = props;
+  }
+  propL = trimAList(propL);
+  return propL;
+}
+
+/**
+ * Safely get nested prop from object
+ *
+ * @param {Object} obj
+ * @param {(Array|String)} props - props string or array
+ * @return {*} return prop from a object
+ */
+function getProp(obj, props) {
+  const propL = getKeyL(props);
+  return propL.reduce((acc, cur) => (acc ? acc[cur] : undefined), obj || self);
+}
+
+exports.getProp = getProp;
+
+/**
+ * Safely get nested prop (paired with key) from object
+ *
+ * @param {Object} obj
+ * @param {(Array|String)} props
+ * @return {*} return key-value pair from a object
+ */
+function getPropPair(obj, props) {
+  const v = getProp(obj, props);
+  const pL = getKeyL(props);
+  const k = pL[pL.length - 1];
+  return { [k]: v };
+}
+
+exports.getPropPair = getPropPair;
+
+function promiseToCreate(Model, o) {
+  try {
+    return Model.create(createDocList(o));
+  } catch (err) {
+    return Promise.reject(err);
+  }
+}
+
+exports.promiseToCreate = promiseToCreate;
+
+exports.hashAPassword = (password) => {
+  let pw = argv.pw ? argv.pw : password;
+  if (!pw) {
+    // TODO: i18n
+    return Promise.reject('empty password');
+  }
+  try {
+    pw = JSON.stringify(pw);
+    return bcrypt.hash(pw, 10);
+  } catch (e) {
+    return Promise.reject(e);
+  }
+};
+
+exports.compareAPassword = (password, hash) => bcrypt.compare(password, hash);

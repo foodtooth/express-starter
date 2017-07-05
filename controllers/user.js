@@ -1,12 +1,63 @@
 'use strict';
 
 const debug = require('debug')('vsk:controllers:user');
+const HTTPStatus = require('http-status');
 
 const utils = require('../helpers/utils');
+const User = require('../models/user');
 
-exports.createUsers = utils.createVerSelector({
+function initUsers() {
+  const guestDoc = {
+    email: 'guest@myapp.com',
+    username: 'guest',
+  };
+  const adminDoc = {
+    email: 'admin@myapp.com',
+    username: 'admin',
+  };
+  const key = 'username';
+  const options = {
+    new: true,
+    upsert: true,
+    runValidators: true,
+    setDefaultsOnInsert: true,
+    passRawResult: true,
+    runSettersOnQuery: true,
+  };
+  const pGuest = User.findOneAndUpdate(
+    utils.createDocContent(guestDoc, [key]),
+    { $setOnInsert: guestDoc },
+    options,
+  ).exec();
+  const pAdmin = User.findOneAndUpdate(
+    utils.createDocContent(adminDoc, [key]),
+    { $setOnInsert: adminDoc },
+    options,
+  ).exec();
+  return Promise.all([pGuest, pAdmin]);
+}
+
+initUsers()
+.then((values) => {
+  debug('initUsers: %O', values);
+  return values;
+})
+.catch((err) => {
+  debug('err while initUsers: %O', err);
+});
+
+exports.postUsers = utils.createVerSelector({
   1(req, res) {
-    res.send(`A ${req.method} request to ${req.baseUrl}${req.path} received`);
+    debug('req.user: %O', req.user);
+    utils.promiseToCreate(User, req.body)
+    .then((result) => {
+      debug('result: %O', result);
+      return res.status(HTTPStatus.CREATED).json(result);
+    })
+    .catch((err) => {
+      debug('err: %O', err);
+      return res.status(HTTPStatus.UNPROCESSABLE_ENTITY).json(err);
+    });
   },
 });
 

@@ -9,16 +9,19 @@ const router = express.Router();
 
 const auths = require('./auths');
 const clients = require('./clients');
+const rbacs = require('./rbacs');
 const users = require('./users');
+const profile = require('./profile');
 
 const apiDocs = require('./apidocs');
 
-const rests1 = { auths }; // for non-auth module
-const rests2 = { clients, users }; // for auth-required module
+const rests1 = { auths, clients, users }; // for guest-allowed-authentication module
+const rests2 = { rbacs, profile }; // for guest-forbidden-authentication module
 
 Object.keys(rests1).forEach((k) => {
   router.use(`/api/:version?/${k}`,
     utils.versioning,
+    passport.authenticate(['basic', 'jwt', 'guest'], { session: false }),
     rests1[k]);
 });
 Object.keys(rests2).forEach((k) => {

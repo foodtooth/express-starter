@@ -5,10 +5,11 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const debug = require('debug')('vsk:app');
 
+const appConfig = require('config').get('general');
 const passport = require('./helpers/passport');
 const i18nMiddleware = require('./helpers/i18nmiddleware');
-const appConfig = require('config').get('general');
 const routes = require('./routes');
+
 const mongoose = require('./helpers/mongoose');
 
 mongoose.connection.on('error', () => {
@@ -22,7 +23,7 @@ const app = express();
 
 // TODO:
 // 1. redis
-// 2. automatically add globally required tools like: pm2
+// 2. automatically add globally required tools like: nodemon
 // 6. website as a client to api
 
 app.set('views', path.join(__dirname, 'views'));
@@ -30,6 +31,7 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/static', express.static(path.join(__dirname, 'public')));
 
 app.use(passport.initialize());
 app.use(i18nMiddleware);

@@ -1,10 +1,10 @@
 'use strict';
 
-const uuid = require('uuid');
 const debug = require('debug')('vsk:models:user');
 
 const utils = require('../helpers/utils');
 const mongoose = require('../helpers/mongoose');
+const joi = require('../helpers/joi');
 const schemaOptions = require('config').get('mongoose.schemaOptions');
 const env = require('config').get('env');
 
@@ -29,8 +29,8 @@ const Schema = mongoose.Schema;
  *           type: string
  */
 const userSchema = new Schema({
-  _id: { type: String, default: uuid },
-  age: { type: Number, min: 1 },
+  birthday: { type: String, default: '0000', validate: joi.wrapToMV('user.birthday') },
+  birthyear: { type: String, default: '0000', validate: joi.wrapToMV('user.birthyear') },
   email: {
     type: String,
     trim: true,
@@ -40,6 +40,7 @@ const userSchema = new Schema({
     lowercase: true,
   },
   extra: { type: Schema.Types.Mixed, default: {} },
+  password: { type: String, required: true, select: false },
   spouses: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   username: {
     type: String,
@@ -50,6 +51,25 @@ const userSchema = new Schema({
     minlength: env.username.mix,
   },
 }, schemaOptions);
+
+/**
+ * A middleware (MW) for hashing password before save() (or update())
+ *
+ */
+function hashBeforeSaveMW(next) {
+  if (this.password) {
+    utils.hashAPassword(this.password)
+    .then((hash) => {
+      this.password = hash;
+      return next(this);
+    })
+    .catch(err => debug('Err while hash password: %O', err));
+  } else {
+    next();
+  }
+}
+
+userSchema.pre('save', hashBeforeSaveMW);
 
 const User = mongoose.model('User', userSchema);
 

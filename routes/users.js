@@ -38,7 +38,7 @@ router.route('/')
  *           items:
  *             $ref: '#/definitions/User'
  */
-.post(userCtrl.createUsers)
+.post(userCtrl.postUsers)
 /**
  * @swagger
  * /v1/users/:

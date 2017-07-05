@@ -44,6 +44,7 @@ general:
   pathname: '/'
   search: ''
   hash: ''
+  uploadPath: './public/images/uploads/'
 
 env:
   username:
@@ -52,9 +53,16 @@ env:
   jwt:
     secret: 'secret'
     exp: '7d'
+  birthyear:
+    min: 0
+    max: 2300
 
 constant:
   Result:
     SUCCESS: success
     FAIL: fail
     ERROR: error
+  Role:
+    GUEST: guest
+    MEMBER: member
+    ADMIN: admin

@@ -7,9 +7,9 @@ const authCtrl = require('../controllers/auth');
 const router = express.Router();
 
 router.route('/')
-.delete(authCtrl.removeAuth);
+.delete(authCtrl.deleteAuths);
 
 router.route('/jwt')
-.post(authCtrl.newJwtAuth);
+.post(authCtrl.postJwt);
 
 module.exports = router;

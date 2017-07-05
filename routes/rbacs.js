@@ -2,12 +2,11 @@
 
 const express = require('express');
 
-const clientCtrl = require('../controllers/client');
+const rbacCtrl = require('../controllers/rbac');
 
 const router = express.Router();
 
 router.route('/')
-.post(clientCtrl.postClients)
-.get(clientCtrl.getClients);
+.get();
 
 module.exports = router;
