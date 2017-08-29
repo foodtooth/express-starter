@@ -1,10 +1,10 @@
-'use strict';
+
 
 const debug = require('debug')('vsk:models:user');
 
-const utils = require('../helpers/utils');
-const mongoose = require('../helpers/mongoose');
-const joi = require('../helpers/joi');
+const utils = require('../../helpers/utils');
+const mongoose = require('../../helpers/mongoose');
+const joi = require('../../helpers/joi');
 const schemaOptions = require('config').get('mongoose.schemaOptions');
 const env = require('config').get('env');
 

@@ -1,4 +1,4 @@
-'use strict';
+
 
 const i18n = require('i18next');
 const i18nMiddleware = require('i18next-express-middleware');

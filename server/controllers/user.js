@@ -1,9 +1,7 @@
-'use strict';
-
 const debug = require('debug')('vsk:controllers:user');
 const HTTPStatus = require('http-status');
 
-const utils = require('../helpers/utils');
+const utils = require('../../helpers/utils');
 const User = require('../models/user');
 
 function initUsers() {
@@ -27,13 +25,11 @@ function initUsers() {
   const pGuest = User.findOneAndUpdate(
     utils.createDocContent(guestDoc, [key]),
     { $setOnInsert: guestDoc },
-    options,
-  ).exec();
+    options).exec();
   const pAdmin = User.findOneAndUpdate(
     utils.createDocContent(adminDoc, [key]),
     { $setOnInsert: adminDoc },
-    options,
-  ).exec();
+    options).exec();
   return Promise.all([pGuest, pAdmin]);
 }
 

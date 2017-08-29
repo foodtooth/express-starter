@@ -1,4 +1,4 @@
-'use strict';
+
 
 const BaseJoi = require('joi');
 const JoiDateExt = require('joi-date-extensions');

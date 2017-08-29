@@ -1,11 +1,12 @@
-'use strict';
+
 
 const express = require('express');
 
-const swaggerUi = require('../helpers/swaggerui');
+const rbacCtrl = require('../controllers/rbac');
 
 const router = express.Router();
 
-router.use('/', ...swaggerUi);
+router.route('/')
+.get();
 
 module.exports = router;

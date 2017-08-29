@@ -1,9 +1,9 @@
-'use strict';
+
 
 const debug = require('debug')('vsk:controllers:client');
 const HTTPStatus = require('http-status');
 
-const utils = require('../helpers/utils');
+const utils = require('../../helpers/utils');
 const Client = require('../models/client');
 
 exports.postClients = (req, res) => {

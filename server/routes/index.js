@@ -1,9 +1,9 @@
-'use strict';
+
 
 const express = require('express');
 
-const utils = require('../helpers/utils');
-const passport = require('../helpers/passport');
+const utils = require('../../helpers/utils');
+const passport = require('../../helpers/passport');
 
 const router = express.Router();
 

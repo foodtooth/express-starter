@@ -8,11 +8,17 @@ env:
 extends:
   - eslint:recommended
   - plugin:promise/recommended
+  - plugin:vue/recommended
   - airbnb-base
 
 plugins:
   - import
   - promise
+  - vue
+  - html
 
 parserOptions:
-  sourceType: script
+  sourceType: module
+  ecmaVersion: 6
+  ecmaFeatures:
+    impliedStrict: true

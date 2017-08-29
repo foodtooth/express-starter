@@ -1,9 +1,9 @@
-'use strict';
+
 
 const randstr = require('randomstring');
 const debug = require('debug')('vsk:models:client');
 
-const mongoose = require('../helpers/mongoose');
+const mongoose = require('../../helpers/mongoose');
 const schemaOptions = require('config').get('mongoose.schemaOptions');
 
 const Schema = mongoose.Schema;

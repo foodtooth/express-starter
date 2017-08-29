@@ -1,4 +1,4 @@
-'use strict';
+
 
 const passport = require('passport');
 const DummyStrategy = require('passport-dummy').Strategy;
@@ -9,7 +9,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 const debug = require('debug')('vsk:helpers:passport');
 
 const env = require('config').get('env');
-const User = require('../models/user');
+const User = require('../server/models/user');
 const utils = require('./utils');
 
 passport.use('guest', new DummyStrategy({

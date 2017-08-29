@@ -1,4 +1,4 @@
-'use strict';
+
 
 const express = require('express');
 const path = require('path');
@@ -6,11 +6,11 @@ const bodyParser = require('body-parser');
 const debug = require('debug')('vsk:app');
 
 const appConfig = require('config').get('general');
-const passport = require('./helpers/passport');
-const i18nMiddleware = require('./helpers/i18nmiddleware');
+const passport = require('../helpers/passport');
+const i18nMiddleware = require('../helpers/i18nmiddleware');
 const routes = require('./routes');
 
-const mongoose = require('./helpers/mongoose');
+const mongoose = require('../helpers/mongoose');
 
 mongoose.connection.on('error', () => {
   throw new Error('Unable to connect to database');

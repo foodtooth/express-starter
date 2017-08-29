@@ -4,11 +4,11 @@
   "description": "test vue",
   "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint --ignore-path .gitignore .",
-    "lint:fix": "./node_modules/.bin/eslint --fix --ignore-path .gitignore .",
-    "dev": "NODE_ENV=development DEBUG=vsk:* nodemon app.js",
+    "lint": "eslint --ignore-path .gitignore --ext .js,.vue client server test helpers",
+    "lint:fix": "eslint --fix --ignore-path .gitignore --ext .js,.vue client server test helpers",
+    "dev": "NODE_ENV=development DEBUG=vsk:* nodemon server/app.js",
     "test": "mocha",
-    "profiling": "NODE_ENV=production node --prof app.js",
+    "profiling": "NODE_ENV=production node --prof server/app.js",
     "genpw": "node -e 'require(\"./helpers/utils.js\").hashAPassword().then(r => console.log(r))'"
   },
   "author": "foodtooth",
@@ -45,17 +45,23 @@
     "swagger-jsdoc": "^1.9.2",
     "swagger-ui-express": "^1.0.6",
     "uuid": "^3.0.1",
-    "vue": "^2.3.2",
+    "vue": "^2.4.2",
     "winston": "^2.3.1",
     "yargs": "^8.0.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
-    "eslint": "^3.19.0",
+    "css-loader": "^0.28.5",
+    "eslint": "https://registry.npmjs.org/eslint/-/eslint-3.19.0.tgz",
     "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-html": "^3.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-promise": "^3.5.0",
-    "mocha": "^3.3.0"
+    "eslint-plugin-vue": "^3.5.0",
+    "mocha": "^3.3.0",
+    "vue-loader": "^13.0.4",
+    "vue-template-compiler": "^2.4.2",
+    "webpack": "^3.5.5"
   }
 }

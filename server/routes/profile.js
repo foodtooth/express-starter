@@ -1,8 +1,8 @@
-'use strict';
+
 
 const express = require('express');
 
-const utils = require('../helpers/utils');
+const utils = require('../../helpers/utils');
 const profileCtrl = require('../controllers/profile');
 
 const router = express.Router();

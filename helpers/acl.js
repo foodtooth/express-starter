@@ -1,4 +1,4 @@
-'use strict';
+
 
 let acl = require('acl');
 const mongoose = require('./mongoose');
