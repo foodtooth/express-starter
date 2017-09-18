@@ -235,15 +235,13 @@ function getPropPair(obj, props) {
 
 exports.getPropPair = getPropPair;
 
-function promiseToCreate(Model, o) {
+exports.promiseToCreate = (Model, o) => {
   try {
     return Model.create(createDocList(o));
   } catch (err) {
     return Promise.reject(err);
   }
-}
-
-exports.promiseToCreate = promiseToCreate;
+};
 
 exports.hashAPassword = (password) => {
   let pw = argv.pw ? argv.pw : password;
