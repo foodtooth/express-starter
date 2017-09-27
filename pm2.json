@@ -1,0 +1,14 @@
+{
+  "apps": [{
+    "name": "server",
+    "script": "./server/app.js",
+    "watch": true,
+    "env": {
+      "NODE_ENV": "development",
+      "DEBUG": "vsk:*"
+    },
+    "env_production": {
+      "NODE_ENV": "production"
+    }
+  }]
+}
