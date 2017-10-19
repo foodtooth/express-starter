@@ -6,7 +6,7 @@ commonConnOpts: &commonConnOpts
   poolSize: 10
 
 mongoose:
-  url: 'mongodb://localhost:27017/vue-starter-kit'
+  url: 'mongodb://localhost:27017/express-starter'
   connectOptions:
     config:
       autoIndex: true

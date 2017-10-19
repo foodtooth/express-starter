@@ -10,7 +10,7 @@ i18n
 .init({
   preload: ['en'],
   fallbackLng: 'en',
-  debug: true,
+  // debug: true,
   ns: ['translation'],
   defaultNS: 'translation',
   fallbackNS: 'translation',

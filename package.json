@@ -1,16 +1,24 @@
 {
-  "name": "vue-starter-kit",
+  "name": "express-starter",
   "version": "1.0.0",
-  "description": "test vue",
+  "description": "server-side starter",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint --ignore-path .gitignore --ext .js,.vue client server test helpers",
-    "lint:fix": "eslint --fix --ignore-path .gitignore --ext .js,.vue client server test helpers",
+    "lint": "eslint --ignore-path .gitignore --ext .js server test helpers",
+    "lint:fix": "eslint --fix --ignore-path .gitignore --ext .js server test helpers",
     "dev": "pm2 startOrReload pm2.json --update-env && pm2 monit",
     "test": "mocha",
     "profiling": "NODE_ENV=production node --prof server/app.js",
     "genpw": "node -e 'require(\"./helpers/utils.js\").hashAPassword().then(r => console.log(r))'"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/foodtooth/express-starter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/foodtooth/express-starter/issues"
+  },
+  "homepage": "https://github.com/foodtooth/express-starter",
   "author": "foodtooth",
   "license": "ISC",
   "dependencies": {
@@ -47,23 +55,17 @@
     "swagger-jsdoc": "^1.9.2",
     "swagger-ui-express": "^1.0.6",
     "uuid": "^3.0.1",
-    "vue": "^2.4.2",
     "winston": "^2.3.1",
     "yargs": "^8.0.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
-    "css-loader": "^0.28.5",
     "eslint": "https://registry.npmjs.org/eslint/-/eslint-3.19.0.tgz",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-html": "^3.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-vue": "^3.5.0",
-    "mocha": "^3.3.0",
-    "vue-loader": "^13.0.4",
-    "vue-template-compiler": "^2.4.2",
-    "webpack": "^3.5.5"
+    "mocha": "^3.3.0"
   }
 }
