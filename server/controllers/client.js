@@ -1,6 +1,4 @@
-
-
-const debug = require('debug')('vsk:controllers:client');
+const debug = require('debug')('es:controllers:client');
 const HTTPStatus = require('http-status');
 
 const utils = require('../../helpers/utils');

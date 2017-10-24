@@ -1,8 +1,6 @@
-
-
 const BaseJoi = require('joi');
 const JoiDateExt = require('joi-date-extensions');
-// const debug = require('debug')('vsk:helpers:joi');
+// const debug = require('debug')('es:helpers:joi');
 const Promise = require('bluebird');
 
 const utils = require('./utils');

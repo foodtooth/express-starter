@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 
 const authCtrl = require('../controllers/auth');

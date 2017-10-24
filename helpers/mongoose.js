@@ -1,7 +1,5 @@
-
-
 const mongoose = require('mongoose');
-const debug = require('debug')('vsk:helpers:mongoose');
+const debug = require('debug')('es:helpers:mongoose');
 
 const mongooseConfig = require('config').get('mongoose');
 

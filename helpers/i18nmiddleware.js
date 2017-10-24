@@ -1,5 +1,3 @@
-
-
 const i18n = require('i18next');
 const i18nMiddleware = require('i18next-express-middleware');
 const i18nFsBackend = require('i18next-node-fs-backend');

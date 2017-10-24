@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint --ignore-path .gitignore --ext .js server test helpers",
     "lint:fix": "eslint --fix --ignore-path .gitignore --ext .js server test helpers",
-    "dev": "pm2 startOrReload pm2.json --update-env && pm2 monit",
+    "dev": "pm2 startOrReload pm2.json --env development --update-env && pm2 monit",
+    "prod": "pm2 startOrReload pm2.json --env production --update-env",
     "test": "mocha",
     "profiling": "NODE_ENV=production node --prof server/app.js",
     "genpw": "node -e 'require(\"./helpers/utils.js\").hashAPassword().then(r => console.log(r))'"
@@ -25,7 +26,7 @@
     "acl": "^0.4.10",
     "base64url": "^2.0.0",
     "bcryptjs": "^2.4.3",
-    "bluebird": "https://registry.npmjs.org/bluebird/-/bluebird-2.10.2.tgz",
+    "bluebird": "^3.5.1",
     "body-parser": "^1.17.1",
     "config": "^1.25.1",
     "debug": "^2.6.6",
@@ -61,7 +62,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
-    "eslint": "https://registry.npmjs.org/eslint/-/eslint-3.19.0.tgz",
+    "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-html": "^3.0.0",
     "eslint-plugin-import": "^2.2.0",

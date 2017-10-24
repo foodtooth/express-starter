@@ -1,6 +1,6 @@
 const memwatch = require('memwatch-next');
 const heapdump = require('heapdump');
-const debug = require('debug')('vsk:helpers:memwatch');
+const debug = require('debug')('es:helpers:memwatch');
 
 function startWatchingMem() {
   if (process.env.NODE_ENV === 'development') {

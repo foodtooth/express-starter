@@ -1,9 +1,7 @@
-
-
 const fs = require('fs');
 const path = require('path');
 const HTTPStatus = require('http-status');
-const debug = require('debug')('vsk:helpers:utils');
+const debug = require('debug')('es:helpers:utils');
 const bcrypt = require('bcryptjs');
 const Promise = require('bluebird');
 const argv = require('yargs').argv;

@@ -1,6 +1,4 @@
-
-
-const debug = require('debug')('vsk:models:user');
+const debug = require('debug')('es:models:user');
 
 const utils = require('../../helpers/utils');
 const mongoose = require('../../helpers/mongoose');

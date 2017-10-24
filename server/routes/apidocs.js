@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 
 const swaggerUi = require('../../helpers/swaggerui');

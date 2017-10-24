@@ -1,9 +1,7 @@
-
-
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const debug = require('debug')('vsk:app');
+const debug = require('debug')('es:app');
 
 const appConfig = require('config').get('general');
 const passport = require('../helpers/passport');

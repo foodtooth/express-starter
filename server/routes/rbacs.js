@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 
 const rbacCtrl = require('../controllers/rbac');

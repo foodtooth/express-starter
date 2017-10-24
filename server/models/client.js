@@ -1,7 +1,5 @@
-
-
 const randstr = require('randomstring');
-const debug = require('debug')('vsk:models:client');
+const debug = require('debug')('es:models:client');
 
 const mongoose = require('../../helpers/mongoose');
 const schemaOptions = require('config').get('mongoose.schemaOptions');

@@ -1,6 +1,4 @@
-
-
-const debug = require('debug')('vsk:controllers:profile');
+const debug = require('debug')('es:controllers:profile');
 const HTTPStatus = require('http-status');
 
 const upload = require('../../helpers/multer').upload;
