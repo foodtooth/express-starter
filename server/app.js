@@ -8,6 +8,7 @@ const passport = require('../helpers/passport');
 const i18nMiddleware = require('../helpers/i18nmiddleware');
 const routes = require('./routes');
 const startWatchingMem = require('../helpers/memwatch');
+const logger = require('../helpers/winston');
 
 const mongoose = require('../helpers/mongoose');
 
@@ -32,7 +33,8 @@ app.use(i18nMiddleware);
 app.use(routes);
 
 app.listen(appConfig.port, () => {
-  debug('Example app listening on port', appConfig.port);
+  debug('es listening on port', appConfig.port);
+  logger.info(`es listening on port ${appConfig.port}`);
   startWatchingMem();
 });
 

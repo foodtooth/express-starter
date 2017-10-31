@@ -7,6 +7,11 @@ debug('mongooseConfig: %O', mongooseConfig);
 
 mongoose.Promise = require('bluebird');
 
-mongoose.connect(mongooseConfig.url, mongooseConfig.connectOptions);
+const dbUrl =
+  process.env.NODE_ENV === 'development' ?
+  mongooseConfig.url :
+  mongooseConfig[`url_${process.env.NODE_ENV}`] || mongooseConfig.url;
+
+mongoose.connect(dbUrl, mongooseConfig.connectOptions);
 
 module.exports = mongoose;

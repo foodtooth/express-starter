@@ -1,3 +1,6 @@
+### Customize ###
+public/
+log/
 
 # Created by https://www.gitignore.io/api/linux,vim,node,eclipse,git,sublimetext
 
@@ -179,5 +182,3 @@ Session.vim
 tags
 
 # End of https://www.gitignore.io/api/linux,vim,node,eclipse,git,sublimetext
-
-public/

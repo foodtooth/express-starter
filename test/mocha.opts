@@ -1,0 +1,5 @@
+--reporter spec
+--recursive
+--growl
+--ui exports
+--require ./test/mocha.bootstrap.js
