@@ -6,7 +6,7 @@ const profileCtrl = require('../controllers/profile');
 const router = express.Router();
 
 router.route('/')
-.post(profileCtrl.postProfile)
-.get(utils.fbController);
+  .post(profileCtrl.postProfile)
+  .get(utils.fbController);
 
 module.exports = router;

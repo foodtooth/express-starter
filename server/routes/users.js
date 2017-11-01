@@ -36,7 +36,7 @@ router.route('/')
  *           items:
  *             $ref: '#/definitions/User'
  */
-.post(userCtrl.postUsers)
+  .post(userCtrl.postUsers)
 /**
  * @swagger
  * /v1/users/:
@@ -55,9 +55,9 @@ router.route('/')
  *           items:
  *             $ref: '#/definitions/User'
  */
-.get(utils.fbController);
+  .get(utils.fbController);
 
 router.route('/:userIds')
-.get(userCtrl.getUser);
+  .get(userCtrl.getUser);
 
 module.exports = router;

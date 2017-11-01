@@ -13,10 +13,9 @@ const swaggerOptions = {
     host: utils.appUrl.split('//')[1],
     basePath: '/api',
   },
-  // TODO: import apis as below
   apis: [
-    './routes/*.js',
-    './models/*.js',
+    './**/routes/*.js',
+    './**/models/*.js',
   ],
 };
 const swaggerSpec = swaggerJSDoc(swaggerOptions);

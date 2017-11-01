@@ -9,8 +9,8 @@ mongoose.Promise = require('bluebird');
 
 const dbUrl =
   process.env.NODE_ENV === 'development' ?
-  mongooseConfig.url :
-  mongooseConfig[`url_${process.env.NODE_ENV}`] || mongooseConfig.url;
+    mongooseConfig.url :
+    mongooseConfig[`url_${process.env.NODE_ENV}`] || mongooseConfig.url;
 
 mongoose.connect(dbUrl, mongooseConfig.connectOptions);
 

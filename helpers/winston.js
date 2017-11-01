@@ -1,7 +1,7 @@
 const winston = require('winston');
 const path = require('path');
 const appConfig = require('config').get('general');
-const debug = require('debug')('es:helpers:winston');
+const debug = require('debug')(`${appConfig.name}:helpers:winston`);
 const makeDir = require('make-dir');
 
 const sanitize = winston.format((info, opts) => {
@@ -10,13 +10,13 @@ const sanitize = winston.format((info, opts) => {
 });
 
 makeDir(appConfig.logPath)
-.then(dir => {
-  debug('%O created', dir);
-  return dir;
-})
-.catch((err) => {
-  debug('makeDir failed due to %O', err);
-});
+  .then((dir) => {
+    debug('%O created', dir);
+    return dir;
+  })
+  .catch((err) => {
+    debug('makeDir failed due to %O', err);
+  });
 
 const logger = winston.createLogger({
   level: 'info',

@@ -1,29 +1,16 @@
-commonSocketOpts: &commonSocketOpts
-  keepAlive: 120
-  connectTimeoutMS: 10000
-  socketTimeoutMS: 10000
-commonConnOpts: &commonConnOpts
-  poolSize: 10
-
 mongoose:
   url: 'mongodb://localhost:27017/express-starter'
   url_test: 'mongodb://localhost:27017/express-starter-test'
   connectOptions:
-    config:
-      autoIndex: true
-    db:
-      w: majority
-      wtimeout: 10000
-      j: true
-    server:
-      << : *commonConnOpts
-      reconnectTries: .inf
-      socketOptions:
-        << : *commonSocketOpts
-    replset:
-      << : *commonConnOpts
-      socketOptions:
-        << : *commonSocketOpts
+    keepAlive: 120
+    connectTimeoutMS: 10000
+    socketTimeoutMS: 10000
+    poolSize: 10
+    autoIndex: true
+    w: majority
+    wtimeout: 10000
+    j: true
+    reconnectTries: .inf
   schemaOptions:
     timestamps: true
     emitIndexErrors: true
@@ -39,6 +26,7 @@ mongoose:
     runSettersOnQuery: true
 
 general:
+  name: es
   protocol: 'http:' # must have :
   domain: 'localhost'
   port: 9999

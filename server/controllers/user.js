@@ -34,26 +34,26 @@ function initUsers() {
 }
 
 initUsers()
-.then((values) => {
-  debug('initUsers: %O', values);
-  return values;
-})
-.catch((err) => {
-  debug('err while initUsers: %O', err);
-});
+  .then((values) => {
+    debug('initUsers: %O', values);
+    return values;
+  })
+  .catch((err) => {
+    debug('err while initUsers: %O', err);
+  });
 
 exports.postUsers = utils.createVerSelector({
   1(req, res) {
     debug('req.user: %O', req.user);
     utils.promiseToCreate(User, req.body)
-    .then((result) => {
-      debug('result: %O', result);
-      return res.status(HTTPStatus.CREATED).json(result);
-    })
-    .catch((err) => {
-      debug('err: %O', err);
-      return res.status(HTTPStatus.UNPROCESSABLE_ENTITY).json(err);
-    });
+      .then((result) => {
+        debug('result: %O', result);
+        return res.status(HTTPStatus.CREATED).json(result);
+      })
+      .catch((err) => {
+        debug('err: %O', err);
+        return res.status(HTTPStatus.UNPROCESSABLE_ENTITY).json(err);
+      });
   },
 });
 

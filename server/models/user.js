@@ -57,11 +57,11 @@ const userSchema = new Schema({
 function hashBeforeSaveMW(next) {
   if (this.password) {
     utils.hashAPassword(this.password)
-    .then((hash) => {
-      this.password = hash;
-      return next(this);
-    })
-    .catch(err => debug('Err while hash password: %O', err));
+      .then((hash) => {
+        this.password = hash;
+        return next(this);
+      })
+      .catch(err => debug('Err while hash password: %O', err));
   } else {
     next();
   }
