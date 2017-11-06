@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const debug = require('debug')('es:app');
+const cors = require('cors');
 
 const appConfig = require('config').get('general');
 const passport = require('../helpers/passport');
@@ -23,6 +24,11 @@ const app = express();
 
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
+
+app.use(cors({
+  origin: true,
+  credentials: true,
+}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
