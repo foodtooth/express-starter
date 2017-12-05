@@ -31,12 +31,12 @@ const schema = {
  */
 function wrapToMV(key = '') {
   const joiSchema = utils.getProp(schema, key);
-  return v => new Promise((resolve, reject) => {
+  return v => Promise.promisify((cb) => {
     const result = Joi.validate(v, joiSchema);
     if (result.error) {
-      reject(result.value);
+      cb(result.value);
     } else {
-      resolve(true);
+      cb(null);
     }
   });
 }

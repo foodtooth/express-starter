@@ -12,6 +12,6 @@ const dbUrl =
     mongooseConfig.url :
     mongooseConfig[`url_${process.env.NODE_ENV}`] || mongooseConfig.url;
 
-mongoose.connect(dbUrl, mongooseConfig.connectOptions);
+mongoose.connect(dbUrl, Object.assign({ useMongoClient: true }, mongooseConfig.connectOptions));
 
 module.exports = mongoose;
