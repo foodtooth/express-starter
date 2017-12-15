@@ -1,5 +1,6 @@
 const debug = require('debug')('es:controllers:user');
 const HTTPStatus = require('http-status');
+const mongoose = require('mongoose');
 
 const utils = require('../../helpers/utils');
 const User = require('../models/user');
@@ -56,6 +57,13 @@ exports.postUsers = utils.createVerSelector({
       });
   },
 });
+
+// function getUsers() {
+//   return User.find({ _id: { $gt: mongoose.Types.ObjectId.createFromTime(new Date('2018-01-01')) } }).exec();
+// }
+// getUsers()
+//   .then(docs => debug(`docs: ${docs}`))
+//   .catch(err => debug(`err: ${err}`));
 
 exports.getUser = (req, res) => {
   debug('get /users/:userIds with req.user: %O', req.user);
